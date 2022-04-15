@@ -48,9 +48,9 @@ const Navbar = () => {
             </a>
           </Link>
 
-          <Link href="/signup">
+          <Link href="/register">
             <a className="lg:inline-flex lg:w-auto px-3 py-2 rounded text-black hover:text-white">
-              SIGN UP
+              REGISTER
             </a>
           </Link>
 
