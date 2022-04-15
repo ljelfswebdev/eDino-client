@@ -13,13 +13,15 @@ const Register = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    // const [state] = useContext(UserContext);
+    const [state] = useContext(UserContext);
     const router= useRouter();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
+            setLoading(true);
            const {data} = await axios.post(
             `${process.env.NEXT_PUBLIC_API}/register`, {
                 name,
@@ -28,11 +30,13 @@ const Register = () => {
             }); 
         if (data.error) {
             toast.error(data.error)
+            setLoading(false);
         } else {
             toast.success("You have successfully registered")
             setName('');
             setEmail('');
             setPassword('');
+            setLoading(true);
             router.push('/products');
           }  
         }
@@ -41,7 +45,7 @@ const Register = () => {
         }  
     };
     
-    // if(state && state.token) router.push('/');
+    if(state && state.token) router.push('/');
 
     return ( 
         <div className={styles.container}>

@@ -1,8 +1,25 @@
-import { useState } from "react";
+import { UserContext } from "../../context";
+import { useContext, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 const Navbar = () => {
   const [showNav, setShowNav] = useState(false);
+
+  const [current, setCurrent] = useState('');
+  const [state, setState] = useContext(UserContext);
+
+  useEffect(() => {
+      process.browser && setCurrent(window.location.pathname);
+  }, [process.browser && window.location.pathname]);
+
+  const router = useRouter(); 
+
+  const logout = () => {
+    window.localStorage.removeItem('auth');
+    setState(null);
+    router.push('/login');
+};
 
   return (
     <header className="flex items-center p-3 flex-wrap text-white bg-green">
@@ -13,6 +30,7 @@ const Navbar = () => {
           </a>
         </Link>
       </div>
+
       <button
         onClick={() => setShowNav(!showNav)}
         type="button"
@@ -36,21 +54,12 @@ const Navbar = () => {
             (showNav ? "" : "hidden")
           }
         >
-          <Link href="/products">
+
+        {state !== null ? (
+          <>
+            <Link href="/products">
             <a className="lg:inline-flex lg:w-auto px-3 py-2 rounded text-black hover:text-white">
               PRODUCTS
-            </a>
-          </Link>
-
-          <Link href="/login">
-            <a className="lg:inline-flex lg:w-auto px-3 py-2 rounded text-black hover:text-white">
-              LOGIN
-            </a>
-          </Link>
-
-          <Link href="/register">
-            <a className="lg:inline-flex lg:w-auto px-3 py-2 rounded text-black hover:text-white">
-              REGISTER
             </a>
           </Link>
 
@@ -65,8 +74,40 @@ const Navbar = () => {
               CART
             </a>
           </Link>
-        </div>
-      </div>
+
+          
+            <a onClick={logout} className="hover:cursor-pointer lg:inline-flex lg:w-auto px-3 py-2 rounded text-black hover:text-white">LOG OUT</a>
+      
+          </>
+        ) : (
+          <>
+          <Link href="/products">
+          <a className="lg:inline-flex lg:w-auto px-3 py-2 rounded text-black hover:text-white">
+            PRODUCTS
+          </a>
+        </Link>
+
+        <Link href="/login">
+          <a className="lg:inline-flex lg:w-auto px-3 py-2 rounded text-black hover:text-white">
+            LOGIN
+          </a>
+        </Link>
+
+        <Link href="/register">
+          <a className="lg:inline-flex lg:w-auto px-3 py-2 rounded text-black hover:text-white">
+            REGISTER
+          </a>
+        </Link>
+
+        <Link href="/contact">
+          <a className="lg:inline-flex lg:w-auto px-3 py-2 rounded text-black hover:text-white">
+            CONTACT
+          </a>
+        </Link>
+      </>
+    )}        
+    </div>
+    </div>
     </header>
   );
 };
