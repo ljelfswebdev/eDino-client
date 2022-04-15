@@ -56,7 +56,7 @@ const Register = () => {
                 Please Register
             </h1>
             <div>
-                <form onSubmit={handleSubmit} className="w-full max-w-sm mt-10">
+                <form className="w-full max-w-sm mt-10">
                 <div className="md:flex md:items-center mb-6">
 
                     <div className="md:w-1/3">
@@ -104,6 +104,7 @@ const Register = () => {
                     <div className="md:w-1/3" />
                     <div className="md:w-2/3">
                     <button
+                        onClick={handleSubmit}
                         disabled={!name || !email || !password}
                         className="shadow bg-green hover:bg-lime focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button"
                         >
