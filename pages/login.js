@@ -9,7 +9,7 @@ import Head from 'next/head';
 
 
 
-const Register = () => {
+const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -49,16 +49,16 @@ const Register = () => {
     return ( 
         <div className={styles.container}>
             <Head>
-            <title>eDino</title>
+            <title>eDino | Login</title>
             <meta name="description" content="ecommerce site to buy dinosaurs!!" />
             <link rel="icon" href="/favicon.ico" />
             </Head>
     
-            <main className={styles.main}>
+            <main>
             <h1 className={styles.title}>
                 Login
             </h1>
-            <div>
+            <div className='flex flex-wrap justify-center mb-3'>
                 <form className="w-full max-w-sm mt-10">
                 
                 <div className="md:flex md:items-center mb-6">
@@ -108,4 +108,4 @@ const Register = () => {
     );
 }
  
-export default Register;
+export default Login;

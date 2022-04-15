@@ -37,7 +37,7 @@ const Register = () => {
             setEmail('');
             setPassword('');
             setLoading(true);
-            router.push('/products');
+            router.push('/login');
           }  
         }
         catch (err) {
