@@ -75,6 +75,23 @@ const Navbar = () => {
             </a>
           </Link>
 
+                                      
+          {state.user.role === "Admin" && (
+            <>
+              <Link href="/admin/addProducts" >
+                <a className="hover:cursor-pointer lg:inline-flex lg:w-auto px-3 py-2 rounded text-black hover:text-white">
+                  ADD PRODUCTS
+                </a>
+              </Link>
+
+              <Link href="/admin/orders" >
+              <a className="hover:cursor-pointer lg:inline-flex lg:w-auto px-3 py-2 rounded text-black hover:text-white">
+                MY ORDERS
+              </a>
+              </Link>
+            </>
+          )}  
+
           
             <a onClick={logout} className="hover:cursor-pointer lg:inline-flex lg:w-auto px-3 py-2 rounded text-black hover:text-white">LOG OUT</a>
       
