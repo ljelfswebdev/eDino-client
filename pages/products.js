@@ -40,10 +40,10 @@ const Products = () => {
             <h1 className={styles.title}>
                 Product List
             </h1>
-            <div className='justify-center mb-3 mt-3'>
+            <div className="flex flex-wrap justify-center mb-3 mt-5">
                 {products.map((p) => (
-                    <div key={p._id} className="max-w-md rounded overflow-hidden shadow-lg mb-3 hover:bg-green text-center">
-                        <img className="w-full" src={p.image.url} alt={p.name}/>
+                    <div key={p._id} className="max-w-md rounded overflow-hidden shadow-lg mb-3 hover:bg-green text-center mx-2 ">
+                        <img className="w-full h-64" src={p.image.url} alt={p.name}/>
                         <div className="px-6 py-4">
                             <div className="font-bold text-xl mb-2">{p.name}</div>
                                 <p className="text-gray-700 text-base">
@@ -53,11 +53,11 @@ const Products = () => {
                                     £{p.price}
                                 </h1>          
                         </div>
-                                  {/* <Link href={`/product/${dino.name}`} >
-                                    <button className="bg-green2 hover:bg-white hover:text-green2 text-white font-bold py-2 px-4 mb-2 rounded-full">
-                                      More Info
-                                    </button>
-                                  </Link> */}
+                        <Link href={`/products/${p._id}`} >
+                            <button className="bg-lime hover:bg-white hover:text-lime text-white font-bold py-2 px-4 mb-2 rounded-full">
+                                More Info
+                            </button>
+                        </Link>
                                   
                     </div>
                 ))}
