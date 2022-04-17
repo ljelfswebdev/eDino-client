@@ -89,6 +89,12 @@ const Navbar = () => {
                 MY ORDERS
               </a>
               </Link>
+
+              <Link href="/admin/products" >
+                <a className="hover:cursor-pointer lg:inline-flex lg:w-auto px-3 py-2 rounded text-black hover:text-white">
+                  MY PRODUCTS
+                </a>
+              </Link>
             </>
           )}  
 

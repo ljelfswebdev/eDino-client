@@ -1,80 +1,19 @@
-import styles from '../../styles/Home.module.css';
+
 import { useContext, useState, useEffect } from "react";
-import { UserContext } from "../../context";
-import AdminRoute from "../../components/routes/AdminRoute";
+import { UserContext } from "../context";
+
 import { useRouter, userRouter } from "next/router";
-import axios from "axios";
-import { toast } from "react-toastify";
-import Head from 'next/head'
 import { CameraOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Avatar } from "antd";
 
 
 
-const Add = () => {
-    const [state, setState] = useContext(UserContext);
-    const [uploading, setUploading] = useState(false);
+const DinoForm = ({name, setName, description, setDescription, price, setPrice, productSubmit, handleImage, uploading, image}) => {
+    const [state] = useContext(UserContext);
     const router= useRouter();
-
-    const [name, setName] = useState('');
-    const [image, setImage] = useState ({});
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState(0);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-        const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API}/create-product`, { name, description, price, image});
-        console.log("create post response => ", data);
-        if (data.error) {
-            toast.error(data.error);
-        } else {
-            toast.success("Post Submitted");
-            setName("");
-            setImage({});
-            setDescription('');
-            setPrice('');
-            router.push('/products')
-        }
-        } catch (err) {
-        console.log(err);
-        }
-    }
-
-    const handleImage = async (e) => {
-        const file = e.target.files[0];
-        let formData = new FormData();
-        formData.append('image', file);
-        setUploading(true);
-        try {
-          const {data} = await axios.post(`${process.env.NEXT_PUBLIC_API}/upload-image`, formData );
-          setImage({
-            url: data.url,
-            public_id: data.public_id,
-          })
-          setUploading(false);
-        } catch(err){
-          console.log(err);
-          setUploading(false);
-        }
-    }; 
-
-
 
     return ( 
         <>
-        <AdminRoute>
-        <div className={styles.container}>
-            <Head>
-            <title>eDino | Add Products</title>
-            <meta name="description" content="ecommerce site to buy dinosaurs!!" />
-            <link rel="icon" href="/favicon.ico" />
-            </Head>
-    
-            <main>
-                <h1 className={styles.title}>
-                    Add Products
-                </h1>
                 <div className="flex justify-center mt-8 mb-8">
                     <div className="rounded-lg shadow-xl bg-gray-50 lg:w-3/4">
                         <div>
@@ -150,20 +89,17 @@ const Add = () => {
 
                                 <div className="flex p-2 space-x-4 justify-center">
                                     <button 
-                                    onClick={handleSubmit}
+                                    onClick={productSubmit}
                                     disable ={!name || !description || !price || !image}
-                                    className="px-4 py-2 text-white bg-green rounded shadow-xl hover:bg-lime">Create</button>
+                                    className="px-4 py-2 text-white bg-green rounded shadow-xl hover:bg-lime">Update</button>
                                 </div>
                             </form>
                         </div>        
                     </div>
                 </div>
-            </main>
-        </div>
-    </AdminRoute>
         </>
 
      );
 }
  
-export default Add;
+export default DinoForm;
