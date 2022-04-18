@@ -8,24 +8,32 @@ import {toast} from 'react-toastify';
 import Link from 'next/link'
 import Head from 'next/head';
 
+
 const Product = () => {
-    const [state, setState] = useContext(UserContext);
+    const [state] = useContext(UserContext);
     const [product, setProduct] = useState({});
     const [image, setImage] = useState({});
-    // const [cart, setCart] = useState([]);
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState('');
    
     const router = useRouter();
     const _id = router.query._id;
  
     useEffect(() => {
-        if(_id) fetchProduct();
-    }, [_id]);
+        if(state && state.token) {
+            fetchProduct();
+        }
+    }, [state && state.token]);
+
+
     
 
     const fetchProduct = async () => {
         try{
             const {data} = await axios.get(`${process.env.NEXT_PUBLIC_API}/product/${_id}`);
             setProduct(data);
+            setPrice(data.price);
+            setName(data.name)
             setImage(data.image);
         } catch (err) {
             console.log(err)
@@ -33,10 +41,20 @@ const Product = () => {
     }
 
     const addToCart = async () => {
-        const {data} = await axios.get(`${process.env.NEXT_PUBLIC_API}/product/${_id}`);
-        // setCart(data)
-        localStorage.setItem('cart', JSON.stringify(data))
-        console.log(data)
+        try {
+        const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API}/add-to-cart`, { name, price});
+        console.log("create post response => ", data);
+        if (data.error) {
+            toast.error(data.error);
+        } else {
+            toast.success("Added to Cart");
+            setName("");
+            setPrice('');
+            router.push('/continue')
+        }
+        } catch (err) { 
+        console.log(err);
+        }
     }
 
     return ( 

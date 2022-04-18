@@ -36,7 +36,7 @@ const Add = () => {
             setPrice('');
             router.push('/admin/products')
         }
-        } catch (err) {
+        } catch (err) { 
         console.log(err);
         }
     }
