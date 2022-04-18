@@ -74,6 +74,18 @@ const AdminProduct = () => {
         }
     }; 
 
+    const deleteProduct = async () => {
+        try {
+            const answer = window.confirm('Are you sure you want to delete?')
+            if(!answer) return;
+            const {data} = await axios.delete(`${process.env.NEXT_PUBLIC_API}/delete-product/${_id}`);
+            toast.error('Post deleted')
+            router.push('./')
+          } catch (err){
+            console.log(err)
+          }
+    } 
+
     return ( 
         <>
         <AdminRoute>
@@ -99,7 +111,12 @@ const AdminProduct = () => {
                handleImage={handleImage}
                productSubmit={productSubmit}
                />
-
+                <div className="flex flex-wrap justify-center">
+                <button onClick={deleteProduct}
+                className="bg-red hover:bg-darkred text-white font-bold py-2 px-4 mb-2 rounded-full">
+                        Delete
+                </button>
+                </div>
             </main>
         </AdminRoute>
         </>

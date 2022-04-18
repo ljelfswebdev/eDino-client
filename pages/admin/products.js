@@ -25,21 +25,7 @@ const AdminProducts = () => {
     };
     useEffect(() => {
         fetchProducts(setProducts)
-    },[]);
-
-    const deleteProduct = async (product) => {
-        try {
-            const answer = window.confirm('Are you sure you want to delete?')
-            if(!answer) return;
-            const {data} = await axios.delete(`${process.env.NEXT_PUBLIC_API}/delete-product/${product._id}`);
-            toast.error('Post deleted')
-            fetchProducts();
-          } catch (err){
-            console.log(err)
-          }
-    }
-
-    
+    },[]); 
 
 
     return ( 
@@ -78,10 +64,6 @@ const AdminProducts = () => {
                                 Edit Dino
                             </button>
                         </Link>
-                        <button onClick={deleteProduct}
-                            className="bg-red hover:bg-darkred text-white font-bold py-2 px-4 mb-2 rounded-full">
-                            Delete
-                        </button>
                                   
                     </div>
                 ))}

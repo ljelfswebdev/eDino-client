@@ -34,7 +34,7 @@ const Add = () => {
             setImage({});
             setDescription('');
             setPrice('');
-            router.push('/products')
+            router.push('/admin/products')
         }
         } catch (err) {
         console.log(err);
