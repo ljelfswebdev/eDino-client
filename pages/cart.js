@@ -28,12 +28,12 @@ const Cart = () => {
     }
   }
 
-  const handleDelete = async () => {
+  const handleDelete = async (cart) => {
     try{
       const answer = window.confirm("Are you sure?");
       if (!answer) return;
       const { data } = await axios.delete(`${process.env.NEXT_PUBLIC_API}/remove-product/${cart._id}`);
-      toast.error("Post deleted");
+      toast.error("Product Removed");
       fetchCart();
     } catch (err) {
       console.log(err)
@@ -54,7 +54,7 @@ const Cart = () => {
             Cart
           </h1>  
           <div className='columns-2'>
-            <div className='container'>
+            <div className='col-md-8'>
               {cart && cart.map((c) => (
                   <div key={c._id}className="flex flex-wrap justify-center mb-3 mt-5">
                     <div className="max-w-md rounded overflow-hidden shadow-lg mb-1 text-center mx-1 w-full">
@@ -66,11 +66,10 @@ const Cart = () => {
                         <button onClick={handleDelete} className="bg-red hover:bg-darkred text-white font-bold py-2 px-4 mb-2 rounded-full">Delete</button>
                       </div>
                     </div>
-                  </div>
-                  
+                  </div>    
               ))}
             </div>
-            <div className='container'>
+            <div className='col-md-4'>
               <div className="flex flex-wrap justify-center mb-3 mt-5">
                 <div className="max-w-md rounded overflow-hidden shadow-lg mb-1 text-center mx-1 w-full">
                   <div className="px-6 py-4 ">
