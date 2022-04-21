@@ -10,6 +10,7 @@ module.exports = {
         'lime' : '#AAFF00',
         'red' : '#FF0000',
         'blue' : '#0000FF',
+        'lightblue' : '#33F0FF',
         'darkred' : '#8B0000'
       }
     },
